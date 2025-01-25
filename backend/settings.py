@@ -52,6 +52,8 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Example: React frontend
+     'https://leaveapp-backend-rhbd.onrender.com',  # API subdomain
+    'https://leaveapp-frontend.vercel.app',  # Main frontend domain (if your frontend also calls the backend directly)
     
 ]
 
@@ -115,38 +117,6 @@ REST_FRAMEWORK = {
     )
     
 }
-SECURE_SSL_REDIRECT = True
-
-
-CORS_ALLOW_CREDENTIALS = True
-
-CORS_ALLOW_ALL_ORIGINS = False
-
-CORS_ALLOWED_ORIGINS = [
-    
-    'https://leaveapp-backend-rhbd.onrender.com',  # API subdomain
-    'https://leaveapp-frontend.vercel.app',  # Main frontend domain (if your frontend also calls the backend directly)
-    
-    
-]
-CSRF_COOKIE_SECURE = True  # Ensures CSRF cookie is only sent over HTTPS
-SESSION_COOKIE_SECURE = True  # Also recommended to set this for security
-CSRF_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SAMESITE = 'Lax'
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_USE_SESSIONS = False
-SECURE_HSTS_SECONDS = 31536000  # 1 year
-
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://leaveapp-backend-rhbd.onrender.com',
-    'https://leaveapp-frontend.vercel.app',  # Add your main frontend domain if needed
-    
-
-]
-
-CSRF_COOKIE_DOMAIN = 'leaveapp-backend-rhbd.onrender.com'
-SESSION_COOKIE_DOMAIN = 'https://leaveapp-frontend.vercel.app'
 
 
 
