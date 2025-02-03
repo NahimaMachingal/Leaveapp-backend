@@ -36,7 +36,7 @@ class LeaveRequest(models.Model):
     end_date = models.DateField()
     reason = models.TextField()
     status = models.CharField(max_length=10, choices=(('pending', 'Pending'), ('approved', 'Approved'), ('rejected', 'Rejected')), default='pending')
-    attachment = models.FileField(upload_to='attachments/', blank=True, null=True)
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
