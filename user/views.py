@@ -87,7 +87,28 @@ class LeaveRequestView(APIView):
 
 
     def post(self, request):
-        serializer = LeaveRequestSerializer(data=request.data, context={"request": request})  # ✅ Pass context
+        today = date.today()
+        max_future_date = today + timedelta(days=45)  # Max 45 days into the future
+        
+        start_date = request.data.get("start_date")
+        end_date = request.data.get("end_date")
+        
+        if not start_date or not end_date:
+            return Response({"error": "Start date and end date are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        start_date = date.fromisoformat(start_date)
+        end_date = date.fromisoformat(end_date)
+
+        if start_date < today:
+            return Response({"error": "Start date cannot be in the past"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if end_date < start_date:
+            return Response({"error": "End date must be after the start date"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if end_date > max_future_date:
+            return Response({"error": "Leave cannot be applied more than 45 days in advance"}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = LeaveRequestSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
