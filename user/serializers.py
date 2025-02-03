@@ -31,7 +31,7 @@ class LeaveRequestSerializer(serializers.ModelSerializer):
     end_date = serializers.DateField(format='%Y-%m-%d')    # Explicitly format end_date
     class Meta:
         model = LeaveRequest
-        fields = ['id', 'employee_name', 'employee_email','leave_type', 'start_date', 'end_date', 'reason', 'attachment', 'status']
+        fields = ['id', 'employee_name', 'employee_email','leave_type', 'start_date', 'end_date', 'reason', 'status']
         read_only_fields = ['status', 'created_at', 'updated_at']
 
     def create(self, validated_data):
